@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import HomePageView
+from .views import HomePageView, run_thread_giveaway
 
 urlpatterns = [
     url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^api/giveaway', run_thread_giveaway, name='giveaway'),
 ]
