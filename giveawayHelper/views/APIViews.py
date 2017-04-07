@@ -56,6 +56,8 @@ def run_thread_giveaway(request):
         "filtered_comments": list(),
         "too_new_comments": list(),
         "winner": None,
+        "thread_title": thread.title,
+        "thread_url": url
     }
 
     eligible_users = dict()

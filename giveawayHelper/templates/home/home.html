@@ -23,6 +23,7 @@
     .title {
     color: white;
     font-size: 20px;
+    cursor: pointer;
     }
     .simplebox {
     -webkit-box-shadow: none !important;
@@ -30,7 +31,7 @@
     box-shadow: none !important;
     }
     .main-content {
-    padding-top: 50px;
+    padding-top: 25px;
     }
     .input-area{
     padding: 20px;
@@ -261,6 +262,10 @@
         $('#datepicker').datepicker({
             autoclose: true,
             clearBtn: true,
+        });
+
+        $('.title').click(function(){
+            location.reload();
         });
 
         $('.main-content').on("click", ".commentEntry", function(){
