@@ -28,7 +28,10 @@ def run_thread_giveaway(request):
         return HttpResponseBadRequest("Forgot to submit a URL")
 
     try:
-        date_limit = int(request.POST['date_limit'])
+        if not request.POST['date_limit']:
+            date_limit = datetime.utcnow().timestamp()
+        else:
+            date_limit = int(request.POST['date_limit'])
     except KeyError as e:
         date_limit = datetime.utcnow().timestamp()
 
@@ -41,15 +44,18 @@ def run_thread_giveaway(request):
                          client_secret=REDDIT_SECRET,
                          user_agent='/r/cubers giveaway helper v0.1 (by /u/euphwes)')
 
-    thread = reddit.submission(url=url)
-    thread.comments.replace_more(limit=0)
+    try:
+        thread = reddit.submission(id=praw.models.Submission.id_from_url(url))
+        thread.comments.replace_more(limit=0)
+    except praw.exceptions.ClientException as e:
+        return HttpResponseBadRequest(str(e))
 
     result = {
         "eligible_comments": list(),
         "duplicate_user_comments": list(),
         "filtered_comments": list(),
         "too_new_comments": list(),
-        "winner": None
+        "winner": None,
     }
 
     eligible_users = dict()

@@ -48,11 +48,6 @@
     background-color: #F5F5F5;
  }
 
- .input-area-header{
-    font-size: 18px;
-    margin-bottom: 10px
- }
-
 .input-area input {
     margin: 10px auto;
     width: 100%;
@@ -99,9 +94,6 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="input-area">
-                    <div class="input-area-header text-center">
-                        Giveaway Info
-                    </div>
                     <input id="redditUrl" type="text" class="form-control simplebox" placeholder="Reddit thread URL"/>
                     <input id="datepicker" type="text" class="form-control simplebox" placeholder="Comment cutoff date (optional)" data-toggle="tooltip" data-placement="right" title="Filters out comments which are newer than the cutoff date.">
                     <input id="filterText" type="text" class="form-control simplebox" placeholder="Filter text (optional)" data-toggle="tooltip" data-placement="right" title="Filters out comments which contain the filter text.">
@@ -118,6 +110,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script>
 $(function() {
+
+    function toTimestamp(strDate){
+     if (strDate === "")
+        return "";
+     var datum = Date.parse(strDate);
+     return datum/1000;
+    };
+
     $('[data-toggle="tooltip"]').tooltip();
     $('#datepicker').datepicker({
         autoclose: true,
@@ -126,6 +126,22 @@ $(function() {
 
     $('#btn-giveaway').click(function(){
         $('#loading-spinner').removeClass('hidden');
+
+        $.post( "api/giveaway",
+            {
+                url: $("#redditUrl").val(),
+                date_limit: toTimestamp($("#datepicker").val()),
+                filter_text: $("#filterText").val()
+            },
+            function(data, status, jqhxr) {
+                console.log(data);
+                $('#loading-spinner').addClass('hidden');
+            }
+        )
+        .fail(function(request, status, error) {
+            alert( request.responseText );
+            $('#loading-spinner').addClass('hidden');
+        });
     });
 });
     </script>
