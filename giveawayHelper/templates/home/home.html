@@ -89,9 +89,9 @@
     .commentEntry {
         padding: 5px;
         width: 100%;
+        border-radius: 5px;
     }
     .commentEntry:hover {
-        padding: 5px;
         cursor: pointer;
         background-color: #c7d0e5;
     }
@@ -128,16 +128,29 @@
       </div>
       <div id="results" class="row hidden">
         <div class="col-md-10 offset-md-1">
-          <div id="accordion" role="tablist" aria-multiselectable="true">
+          <div id="accordion" role="tablist">
+            <div class="card">
+              <div class="card-header" role="tab" id="headingWinner">
+                <h5 class="mb-0">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseWinner">
+                  Winning comment
+                </a>
+                </h5>
+              </div>
+              <div id="collapseWinner" class="collapse show" role="tabpanel">
+                <div class="card-block">
+                </div>
+              </div>
+            </div>
             <div class="card">
               <div class="card-header" role="tab" id="headingEligible">
                 <h5 class="mb-0">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseEligible">
-                  Eligible Comments
+                  Eligible comments
                 </a>
                 </h5>
               </div>
-              <div id="collapseEligible" class="collapse show" role="tabpanel">
+              <div id="collapseEligible" class="collapse" role="tabpanel">
                 <div class="card-block">
                 </div>
               </div>
@@ -146,7 +159,7 @@
               <div class="card-header" role="tab" id="headingFiltered">
                 <h5 class="mb-0">
                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFiltered">
-                  Filtered Comments
+                  Filtered comments
                 </a>
                 </h5>
               </div>
@@ -214,6 +227,9 @@
 
         function populateResults(results){
 
+            var winnerContainer = $('#collapseWinner').children('.card-block').first();
+            winnerContainer.append(template(results.winner));
+
             var eligibleContainer = $('#collapseEligible').children('.card-block').first();
             $.each(results.eligible_comments, function(i, item){
                 eligibleContainer.append(template(item));
@@ -226,13 +242,11 @@
 
             var duplicateContainer = $('#collapseDuplicates').children('.card-block').first();
             $.each(results.duplicate_user_comments, function(i, item){
-                console.log(item);
                 duplicateContainer.append(template(item));
             });
 
             var tooNewContainer = $('#collapseTooNew').children('.card-block').first();
             $.each(results.too_new_comments, function(i, item){
-                console.log(item);
                 tooNewContainer.append(template(item));
             });
 
@@ -247,6 +261,11 @@
         $('#datepicker').datepicker({
             autoclose: true,
             clearBtn: true,
+        });
+
+        $('.main-content').on("click", ".commentEntry", function(){
+            var url = $(this).data('url');
+            window.open(url);
         });
 
         $('#btn-giveaway').click(function(){
