@@ -118,6 +118,14 @@ $(function() {
      return datum/1000;
     };
 
+    function populateResults(results){
+
+
+
+        console.log(results);
+        $('#loading-spinner').addClass('hidden');
+    };
+
     $('[data-toggle="tooltip"]').tooltip();
     $('#datepicker').datepicker({
         autoclose: true,
@@ -125,6 +133,7 @@ $(function() {
     });
 
     $('#btn-giveaway').click(function(){
+
         $('#loading-spinner').removeClass('hidden');
 
         $.post( "api/giveaway",
@@ -134,8 +143,9 @@ $(function() {
                 filter_text: $("#filterText").val()
             },
             function(data, status, jqhxr) {
-                console.log(data);
-                $('#loading-spinner').addClass('hidden');
+                setTimeout(function() {
+                    populateResults(data);
+                }, 1000);
             }
         )
         .fail(function(request, status, error) {
