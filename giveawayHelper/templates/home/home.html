@@ -3,9 +3,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>/r/cubers Giveaways!</title>
+    <title>Giveaways!</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" />
+    <style>
+    body {
+        background-color: #E8E8E8;
+    }
+
+    .cc-navbar {
+        z-index: 999;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: #34495D;
+        border-bottom: 1px solid #B0B0B0;
+
+        width: 100%;
+        height: 51;
+    }
+
+    .title {
+        color: white;
+        font-size: 20px;
+    }
+
+    .simplebox {
+      -webkit-box-shadow: none !important;
+      -moz-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+
+ .main-content {
+    padding-top: 50px;
+ }
+
+ .input-area{
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #D0D0D0;
+    background-color: #F5F5F5;
+ }
+
+ .input-area-header{
+    font-size: 18px;
+    margin-bottom: 10px
+ }
+
+.input-area input {
+    margin: 10px auto;
+    width: 100%;
+}
+    </style>
 </head>
 <body>
-    Hello?
+    <header class="cc-navbar">
+        <div class="title">Reddit Giveaway Helper</div>
+    </header>
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-area">
+                    <div class="input-area-header text-center">
+                        Giveaway Info
+                    </div>
+                    <input type="text" class="form-control simplebox" placeholder="Reddit thread URL"/>
+                    <input type="text" id="datepicker" class="form-control simplebox">
+                </div>
+        </div>
+                        <div class="col-md-6">
+                <div class="winner-info">
+                    asd
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="contentsContainer invisible">
+                <div id="eligible" class="contents"></div>
+                <div id="filtered" class="contents"></div>
+                <div id="duplicates" class="contents"></div>
+                <div id="tooNew" class="contents"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script>
+$(function() {
+    $('#datepicker').datepicker({
+        autoclose: true,
+        clearBtn: true,
+    });
+});
+    </script>
 </body>
 </html>
